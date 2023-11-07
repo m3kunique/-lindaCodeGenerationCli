@@ -29,4 +29,9 @@ public class GenerateClassNameAndPackages {
     public static String generateFileName(String entityName, ClassTypes classTypes){
         return uppercaseFirstLater(entityName) + classTypes + ".java";
     }
+    public static String generateCommandsFilePath(String entityName) {
+        return "src/main/java/" + generatePackageName(entityName)
+                .replace("\\Command", "")
+                .replace(".", "/");
+    }
 }

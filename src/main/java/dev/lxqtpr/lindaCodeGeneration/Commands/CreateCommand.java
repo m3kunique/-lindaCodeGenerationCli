@@ -1,10 +1,6 @@
 package dev.lxqtpr.lindaCodeGeneration.Commands;
 
 import dev.lxqtpr.lindaCodeGeneration.Templates.ClassTypes;
-import dev.lxqtpr.lindaCodeGeneration.Templates.ControllerTemplate;
-import jakarta.validation.Valid;
-import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
@@ -13,7 +9,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 
@@ -25,14 +20,10 @@ import static dev.lxqtpr.lindaCodeGeneration.Utils.GenerateClassNameAndPackages.
 
 @ShellComponent
 public class CreateCommand {
-
-    @Value("${projectPath}")
-    private String projectPath;
-
     @ShellMethod(key = "create", value = "Generate basic boilerplate code for your backend")
-    public String create(@ShellOption String entityName) throws IOException {
-        var folderPath =  Paths.get(projectPath+"\\Domain\\"+uppercaseFirstLater(entityName));
-
+    public String create(@ShellOption String entityName) throws IOException
+    {
+        var folderPath =  Paths.get(generateCommandsFilePath(entityName));
         Files.createDirectories(folderPath);
         HashMap<String, String> templates = new HashMap<>();
 
